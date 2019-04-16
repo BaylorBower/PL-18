@@ -1,0 +1,82 @@
+
+main = putStrLn  "Hello World"
+
+a = 5
+b = "Go Roos" -- ¯\_(ツ)_/¯ 
+c = 42.0
+
+doubleTime a = a + a
+
+richGetRicher x = if x > 100 
+                  then x*2
+                  do {  putStr "In"
+                      ; putStr " the "
+                      ; putStr "money!"
+                      ; putStr "\n"
+                  else x-1
+
+f x =
+   let a = w x
+   in  select (f (h x a))
+          [(cond1 x, a),
+           (cond2 x, g a)]
+           
+let worldsSmallestList = [1,2]
+
+--tuple = (5, 'Z', "Zed's dead")
+
+
+
+p = 1 : 2 : 3 : []
+
+f x !y = x*y
+
+[(i,j) | i <- [1,2],
+         j <- [2..10] 
+         
+mapM_ putStrLn ["1","2","42","1337", "420"]
+
+
+
+maximum' :: (Ord a) => [a] -> a  
+maximum' [] = error "maximum of empty list"  
+maximum' [x] = x  
+maximum' (x:xs)   
+    | x > maxTail = x  
+    | otherwise = maxTail  
+    where maxTail = maximum' xs
+    
+    --Iterator for Bubble Sort
+bsort'iter :: (Ord a) => [a] -> [a]
+bsort'iter (x:y:xs)
+    | x > y = y : bsort'iter (x:xs)
+    | otherwise = x : bsort'iter (y:xs)
+bsort'iter (x) = (x)
+ 
+    --Actual sorter
+bsort' :: (Ord a) => [a] -> Int -> [a]
+bsort' xs i 
+    | i == (length xs) = xs
+    | otherwise = bsort' (bsort'iter xs) (i + 1) 
+ 
+bsort :: (Ord a) => [a] -> [a]
+bsort xs = bsort' xs 0
+
+
+--Merge Sort
+merge :: (Ord a) => [a] -> [a] -> [a]
+merge [] xs = xs
+merge xs [] = xs
+merge (x:xs) (y:ys)
+    | (x < y) = x:merge xs (y:ys)
+    | otherwise = y:merge (x:xs) ys
+ 
+mergesort'split :: [a] -> ([a], [a])
+mergesort'split xs = (take n xs, drop n xs)
+    where n = (length xs) `div` 2 
+ 
+mergesort :: (Ord a) => [a] -> [a]
+mergesort xs 
+    | (length xs) > 1 = merge (mergesort ls) (mergesort rs)
+    | otherwise = xs
+    where (ls, rs) = mergesort'split xs
